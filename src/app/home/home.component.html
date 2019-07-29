@@ -1,0 +1,78 @@
+<div class="row page-style header">
+    <button [ngClass]="[bntStylesec]">Step 1</button>
+    <button [ngClass]="[bntStyle]">Step 2</button>
+</div>
+<div *ngIf=fisrtStep class="main-container" onsubmit="nextStep()">
+
+    <form name="form" (ngSubmit)="f.form.valid && nextStep()" #f="ngForm" novalidate>
+        <div class="row form-group">
+            <div class="col-3">
+                <label for="firstName">First Name</label>
+            </div>
+            <div class="col-3">
+                <input type="text" class="form-control" maxlength="30" [(ngModel)]="model.stepone.firstName" #firstName="ngModel" [ngClass]="{'is-invalid':f.submitted && firstName.invalid}"
+                    name="firstName" required />
+            </div>
+            <div class="invalid-feedback">
+                <div>First Name is required</div>
+            </div>
+        </div>
+        <div class="row form-group">
+                <div class="col-3">
+                    <label for="lastName">Last Name</label>
+                </div>
+                <div class="col-3">
+                    <input type="text" class="form-control" maxlength="30" [(ngModel)]="model.stepone.lastName" #lastName="ngModel" [ngClass]="{'is-invalid':f.submitted && lastName.invalid}"
+                        name="lastName" required />
+                </div>
+                <div class="invalid-feedback">
+                    <div>Last Name is required</div>
+                </div>
+        </div>
+        <div class="row form-group">
+                <div class="col-3">
+                    <label for="address">Address</label>
+                </div>
+                <div class="col-3">
+                    <input type="text" class="form-control" maxlength="300" [(ngModel)]="model.stepone.address"
+                     #address="ngModel" [ngClass]="{'is-invalid':f.submitted && address.invalid}"
+                        name="address" required />
+                </div>
+                <div class="invalid-feedback">
+                    <div>Address is required</div>
+                </div>
+        </div>
+       
+        <div class="form-group">
+            <button class="sub-button">Next</button>
+        </div>
+
+    </form>
+</div>
+<div *ngIf=!fisrtStep class=" step-2 main-container">
+  <form  (ngSubmit)="i.form.valid && submit(true)" #i="ngForm">
+    <div class="row form-group">
+        <div class="col-3 ">
+            <label for="intrest" class="interest">Intrested In?</label>
+        </div>
+        <div class="col-9">
+            <div class="checkbox container" *ngFor="let type of intrestType">
+                <label class="container">{{type.name}}
+                        <input (change)="onCheckUser(type.name,$event)" 
+                        #intrest
+                        [ngClass]="{'is-invalid':i.submitted && intrest.invalid}"
+                        type="checkbox" required/>
+                        <span class="checkmark"></span>
+                </label>
+                <div class="invalid-feedback">
+                        <div>Last Name is required</div>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="row form-group">
+        <button class="sub-button" >submit</button>
+    </div>
+  </form>
+
+</div>
